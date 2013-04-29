@@ -159,6 +159,8 @@ echo "" >> $HOME/systeminfo.txt
 lsb_release -d >> $HOME/systeminfo.txt
 lsb_release -i >> $HOME/systeminfo.txt
 lsb_release -c >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+echo "Based on:" >> $HOME/systeminfo.txt
 cat /etc/issue.net >> $HOME/systeminfo.txt
 echo "" >> $HOME/systeminfo.txt
 
