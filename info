@@ -6,10 +6,10 @@
 # Website - http://www.linuxliteos.com
 # Credits - http://www.notanon.com/shell-scripts/checking-for-multiple-dependencies-simultaneously-in-your-bash-script/2010/04/25/
 
-# Script start
-
 bold=`tput bold`
 normal=`tput sgr0`
+
+# Script start
 
 echo "**************************************"
 echo "Linux Lite - System Information Report"
@@ -35,15 +35,15 @@ echo ""
 
 failed_dep=0
 if ! which lshw > /dev/null; then
-echo "You are missing the ${bold}lshw${normal} package for your system, please install it then rerun this program."
+echo -e "You are missing the ${bold}lshw${normal} package for your system. \nClose this window now, install ${bold}lshw${normal} then rerun this program."
 failed_dep=1
 fi
 if ! which dmidecode > /dev/null; then
-echo "You are missing the ${bold}dmidecode${normal} package for your system, please install it then rerun this program."
+echo "You are missing the ${bold}dmidecode${normal} package for your system. \nClose this window now, install ${bold}dmidecode${normal} then rerun this program."
 failed_dep=1
 fi
 if ! which hdparm > /dev/null; then
-echo "You are missing the ${bold}hdparm${normal} package for your system, please install it then rerun this program."
+echo "You are missing the ${bold}hdparm${normal} package for your system. \nClose this window now, install ${bold}hdparm${normal} then rerun this program."
 failed_dep=1
 fi
 if ! failed_dep==1; then
