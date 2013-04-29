@@ -174,6 +174,8 @@ echo "End of Report" >> $HOME/systeminfo.txt
 echo "===========================================================" >> $HOME/systeminfo.txt
 echo "" >> $HOME/systeminfo.txt
 
+# End of reporting information
+
 echo "The System Report is now complete."
 echo "You now have a file called 'systeminfo.txt' in your Home folder."
 echo "You can open it by double clicking on it."
