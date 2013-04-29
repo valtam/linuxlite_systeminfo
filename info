@@ -46,6 +46,8 @@ if ! failed_dep==1; then
 exit
 fi
 
+# Begin reporting information
+
 echo "===========================================================" >> $HOME/systeminfo.txt
 echo "Bios & Motherboard Information" >> $HOME/systeminfo.txt
 echo "===========================================================" >> $HOME/systeminfo.txt
