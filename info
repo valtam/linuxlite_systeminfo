@@ -52,7 +52,13 @@ echo "===========================================================" >> $HOME/syst
 echo "Bios & Motherboard Information" >> $HOME/systeminfo.txt
 echo "===========================================================" >> $HOME/systeminfo.txt
 echo "" >> $HOME/systeminfo.txt
+
+echo " BIOS:" >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
 sudo dmidecode -t 0 >> $HOME/systeminfo.txt
+
+echo " MOTHERBOARD:" >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
 sudo dmidecode -t 2 >> $HOME/systeminfo.txt
 sudo dmidecode -t 3 >> $HOME/systeminfo.txt
 echo "" >> $HOME/systeminfo.txt
