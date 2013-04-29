@@ -80,7 +80,13 @@ echo "===========================================================" >> $HOME/syst
 echo "Memory Information" >> $HOME/systeminfo.txt
 echo "===========================================================" >> $HOME/systeminfo.txt
 echo "" >> $HOME/systeminfo.txt
+
+echo " RAM SPEED:" >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
 sudo dmidecode --type 17  | grep -i speed >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+
+echo " PHYSICAL RAM DETAILS (one section per ram slot):" >> $HOME/systeminfo.txt
 echo "" >> $HOME/systeminfo.txt
 sudo dmidecode --type 17 >> $HOME/systeminfo.txt
 echo "" >> $HOME/systeminfo.txt
@@ -181,7 +187,7 @@ echo "" >> $HOME/systeminfo.txt
 # End of reporting information
 
 echo "The System Report is now complete."
-echo "You now have a file called 'systeminfo.txt' in your Home folder."
+echo "You now have a file called ${bold}systeminfo.txt${normal} in your Home folder."
 echo "You can open it by double clicking on it."
 echo "Press any Key to close this window."
 read -n1 any_key
