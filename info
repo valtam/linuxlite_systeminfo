@@ -8,12 +8,16 @@
 
 # Script start
 
+bold=`tput bold`
+normal=`tput sgr0`
+
 echo "**************************************"
 echo "Linux Lite - System Information Report"
 echo "**************************************"
 echo ""
-echo "This will gather system information to help you"
-echo "or someone from Support with your computer."
+echo "This will gather system information which will help"
+echo "our Support team to help you more effectively."
+echo "${bold}NO${normal} personal information is sent."
 echo "Please ignore any errors that may pop up."
 echo "This Report may take a while to generate."
 echo ""
@@ -31,15 +35,15 @@ echo ""
 
 failed_dep=0
 if ! which lshw > /dev/null; then
-echo "You are missing the lshw package for your system, please install it then rerun this script."
+echo "You are missing the ${bold}lshw${normal} package for your system, please install it then rerun this program."
 failed_dep=1
 fi
 if ! which dmidecode > /dev/null; then
-echo "You are missing the dmidecode package for your system, please install it then rerun this script."
+echo "You are missing the ${bold}dmidecode${normal} package for your system, please install it then rerun this program."
 failed_dep=1
 fi
 if ! which hdparm > /dev/null; then
-echo "You are missing the hdparm package for your system, please install it then rerun this script."
+echo "You are missing the ${bold}hdparm${normal} package for your system, please install it then rerun this program."
 failed_dep=1
 fi
 if ! failed_dep==1; then
