@@ -1,0 +1,16 @@
+# Linux Lite System Information Report Tool for Ubuntu based systems
+# Dependencies - lshw, dmidecode, hdparm
+# Developer - Jerry Bezencon
+# Creation Date - Monday 29th April, 2013
+# Website - http://www.linuxliteos.com
+# Credits - http://www.notanon.com/shell-scripts/checking-for-multiple-dependencies-simultaneously-in-your-bash-script/2010/04/25/
+
+Parts of the script will work on other linux based distros, feel free to modify
+the code to suit your needs.
+
+Open a terminal:
+
+sudo apt-get install git
+git clone https://github.com/valtam/linuxlite_systeminfo.git
+cd linuxlite_systeminfo/
+./info
