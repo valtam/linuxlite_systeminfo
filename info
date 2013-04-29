@@ -94,8 +94,19 @@ echo "===========================================================" >> $HOME/syst
 echo "" >> $HOME/systeminfo.txt
 df -T >> $HOME/systeminfo.txt
 echo "" >> $HOME/systeminfo.txt
+
+echo " MOUNT:" >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
 mount >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+
+echo " FDISK:" >> $HOME/systeminfo.txt
 sudo fdisk -l /dev/sda >> $HOME/systeminfo.txt
+sudo fdisk -l /dev/sdb >> $HOME/systeminfo.txt
+sudo fdisk -l /dev/sdc >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+
+echo " HDPARM:" >> $HOME/systeminfo.txt
 sudo hdparm -i /dev/sda >> $HOME/systeminfo.txt
 sudo hdparm -i /dev/sdb >> $HOME/systeminfo.txt
 sudo hdparm -i /dev/sdc >> $HOME/systeminfo.txt
