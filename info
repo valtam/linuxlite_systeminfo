@@ -1,0 +1,162 @@
+#!/bin/bash
+# Linux Lite System Information Report Tool for Ubuntu based systems
+# Dependencies - lshw, dmidecode, hdparm
+# Developer - Jerry Bezencon
+# Creation Date - Monday 29th April, 2013
+# Website - http://www.linuxliteos.com
+# Credits - http://www.notanon.com/shell-scripts/checking-for-multiple-dependencies-simultaneously-in-your-bash-script/2010/04/25/
+
+# Script start
+
+echo "**************************************"
+echo "Linux Lite - System Information Report"
+echo "**************************************"
+echo ""
+echo "This will gather system information to help you"
+echo "or someone from Support with your computer."
+echo "Please ignore any errors that may pop up."
+echo "This Report may take a while to generate."
+echo ""
+
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "Report Date: "$(date +"%r, %d - %m - %Y") >> $HOME/systeminfo.txt
+now=$(date +"%r, %d - %m - %Y") >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+
+echo "Please enter your password to continue..."
+echo ""
+
+# Check for dependencies required by this report tool (see Credits above)
+
+failed_dep=0
+if ! which lshw > /dev/null; then
+echo "You are missing the lshw package for your system, please install it then rerun this script."
+failed_dep=1
+fi
+if ! which dmidecode > /dev/null; then
+echo "You are missing the dmidecode package for your system, please install it then rerun this script."
+failed_dep=1
+fi
+if ! which hdparm > /dev/null; then
+echo "You are missing the hdparm package for your system, please install it then rerun this script."
+failed_dep=1
+fi
+if ! failed_dep==1; then
+exit
+fi
+
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "Bios & Motherboard Information" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+sudo dmidecode -t 0 >> $HOME/systeminfo.txt
+sudo dmidecode -t 2 >> $HOME/systeminfo.txt
+sudo dmidecode -t 3 >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "CPU Information" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+grep "model name" /proc/cpuinfo >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+lscpu >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "Memory Information" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+sudo dmidecode --type 17  | grep -i speed >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+sudo dmidecode --type 17 >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "Graphics Chip Information" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+sudo lshw -C display >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "Sound Information" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+aplay --list-devices >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "Hard Drive/SSD Information" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+df -T >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+mount >> $HOME/systeminfo.txt
+sudo fdisk -l /dev/sda >> $HOME/systeminfo.txt
+sudo hdparm -i /dev/sda >> $HOME/systeminfo.txt
+sudo hdparm -i /dev/sdb >> $HOME/systeminfo.txt
+sudo hdparm -i /dev/sdc >> $HOME/systeminfo.txt
+
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "PCI Information" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+lspci >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "USB Information" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+lsusb >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "Kernel Modules Information" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+lsmod >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "Kernel & Operating System Information" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+uname -a >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+lsb_release -d >> $HOME/systeminfo.txt
+lsb_release -i >> $HOME/systeminfo.txt
+lsb_release -c >> $HOME/systeminfo.txt
+cat /etc/issue.net >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "Network Information" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+ifconfig >> $HOME/systeminfo.txt
+more /etc/network/interfaces >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+sudo lshw -C network >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "Software Installed Information" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+dpkg --list >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "End of Report" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo.txt
+echo "" >> $HOME/systeminfo.txt
+
+echo "The System Report is now complete."
+echo "You now have a file called 'systeminfo.txt' in your Home folder."
+echo "You can open it by double clicking on it."
+echo "Press any Key to close this window."
+read -n1 any_key
