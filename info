@@ -5,7 +5,7 @@
 # Creation Date - Monday 29th April, 2013
 # Website - http://www.linuxliteos.com
 # Credits - Various people at the Linux Distro Community including but not limited to:
-# Armageddon, pdq, preecher, setkeh, Shaggytwodope, Stripe, zoose
+# Armageddon, pdq, pingcasts, preecher, setkeh, Shaggytwodope, Stripe, zoose
 
 bold=`tput bold`
 normal=`tput sgr0`
