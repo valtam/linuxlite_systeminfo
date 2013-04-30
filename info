@@ -9,7 +9,7 @@
 bold=`tput bold`
 normal=`tput sgr0`
 DATE=$(date +"%A-%d-%B-%Y-%T")
-# rm -rf $HOME/systeminfo.txt	// yet to be finsihed
+# rm -rf $HOME/systeminfo.txt	// yet to be finished
 
 # Script start
 
