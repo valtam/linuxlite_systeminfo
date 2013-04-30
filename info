@@ -8,6 +8,8 @@
 
 bold=`tput bold`
 normal=`tput sgr0`
+DATE=$(date +"%A-%d-%B-%Y-%T")
+# rm -rf $HOME/systeminfo.txt	// yet to be finsihed
 
 # Script start
 
@@ -22,174 +24,159 @@ echo "Please ignore any errors that may pop up."
 echo "This Report may take a while to generate."
 echo ""
 
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "Report Date: "$(date +"%r, %d - %m - %Y") >> $HOME/systeminfo.txt
-now=$(date +"%r, %d - %m - %Y") >> $HOME/systeminfo.txt
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "Report Date: "$(date +"%r, %d - %m - %Y") >> $HOME/systeminfo-"${DATE}".txt
+now=$(date +"%r, %d - %m - %Y") >> $HOME/systeminfo-"${DATE}".txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
 
 echo "Please enter your password to continue..."
 echo ""
 
-# Check for dependencies required by this report tool (see Credits above)
+# Install any missing dependencies
 
-failed_dep=0
-if ! which lshw > /dev/null; then
-echo -e "You are missing the ${bold}lshw${normal} package for your system. \nClose this window now, install ${bold}lshw${normal} then rerun this program."
-failed_dep=1
-fi
-if ! which dmidecode > /dev/null; then
-echo "You are missing the ${bold}dmidecode${normal} package for your system. \nClose this window now, install ${bold}dmidecode${normal} then rerun this program."
-failed_dep=1
-fi
-if ! which hdparm > /dev/null; then
-echo "You are missing the ${bold}hdparm${normal} package for your system. \nClose this window now, install ${bold}hdparm${normal} then rerun this program."
-failed_dep=1
-fi
-if ! failed_dep==1; then
-exit
-fi
+sudo apt-get install lshw dmidecode hdparm
 
 # Begin reporting information
 
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "Bios & Motherboard Information" >> $HOME/systeminfo.txt
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "Bios & Motherboard Information" >> $HOME/systeminfo-"${DATE}".txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
 
-echo " BIOS:" >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
-sudo dmidecode -t 0 >> $HOME/systeminfo.txt
+echo " BIOS:" >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
+sudo dmidecode -t 0 >> $HOME/systeminfo-"${DATE}".txt
 
-echo " MOTHERBOARD:" >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
-sudo dmidecode -t 2 >> $HOME/systeminfo.txt
-sudo dmidecode -t 3 >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
+echo " MOTHERBOARD:" >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
+sudo dmidecode -t 2 >> $HOME/systeminfo-"${DATE}".txt
+sudo dmidecode -t 3 >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
 
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "CPU Information" >> $HOME/systeminfo.txt
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
-grep "model name" /proc/cpuinfo >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
-lscpu >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "CPU Information" >> $HOME/systeminfo-"${DATE}".txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
+grep "model name" /proc/cpuinfo >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
+lscpu >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
 
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "Memory Information" >> $HOME/systeminfo.txt
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "Memory Information" >> $HOME/systeminfo-"${DATE}".txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
 
-echo " RAM SPEED:" >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
-sudo dmidecode --type 17  | grep -i speed >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
+echo " RAM SPEED:" >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
+sudo dmidecode --type 17  | grep -i speed >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
 
-echo " PHYSICAL RAM DETAILS (one section per ram slot):" >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
-sudo dmidecode --type 17 >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
+echo " PHYSICAL RAM DETAILS (one section per ram slot):" >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
+sudo dmidecode --type 17 >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
 
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "Graphics Chip Information" >> $HOME/systeminfo.txt
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
-sudo lshw -C display >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "Graphics Chip Information" >> $HOME/systeminfo-"${DATE}".txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
+sudo lshw -C display >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
 
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "Sound Information" >> $HOME/systeminfo.txt
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
-aplay --list-devices >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "Sound Information" >> $HOME/systeminfo-"${DATE}".txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
+aplay --list-devices >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
 
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "Hard Drive/SSD Information" >> $HOME/systeminfo.txt
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
-df -T >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "Hard Drive/SSD Information" >> $HOME/systeminfo-"${DATE}".txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
+df -T >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
 
-echo " MOUNT:" >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
-mount >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
+echo " MOUNT:" >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
+mount >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
 
-echo " FDISK:" >> $HOME/systeminfo.txt
-sudo fdisk -l /dev/sda >> $HOME/systeminfo.txt
-sudo fdisk -l /dev/sdb >> $HOME/systeminfo.txt
-sudo fdisk -l /dev/sdc >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
+echo " FDISK:" >> $HOME/systeminfo-"${DATE}".txt
+sudo fdisk -l /dev/sda >> $HOME/systeminfo-"${DATE}".txt
+sudo fdisk -l /dev/sdb >> $HOME/systeminfo-"${DATE}".txt
+sudo fdisk -l /dev/sdc >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
 
-echo " HDPARM:" >> $HOME/systeminfo.txt
-sudo hdparm -i /dev/sda >> $HOME/systeminfo.txt
-sudo hdparm -i /dev/sdb >> $HOME/systeminfo.txt
-sudo hdparm -i /dev/sdc >> $HOME/systeminfo.txt
+echo " HDPARM:" >> $HOME/systeminfo-"${DATE}".txt
+sudo hdparm -i /dev/sda >> $HOME/systeminfo-"${DATE}".txt
+sudo hdparm -i /dev/sdb >> $HOME/systeminfo-"${DATE}".txt
+sudo hdparm -i /dev/sdc >> $HOME/systeminfo-"${DATE}".txt
 
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "PCI Information" >> $HOME/systeminfo.txt
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
-lspci >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "PCI Information" >> $HOME/systeminfo-"${DATE}".txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
+lspci >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
 
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "USB Information" >> $HOME/systeminfo.txt
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
-lsusb >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "USB Information" >> $HOME/systeminfo-"${DATE}".txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
+lsusb >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
 
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "Kernel Modules Information" >> $HOME/systeminfo.txt
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
-lsmod >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "Kernel Modules Information" >> $HOME/systeminfo-"${DATE}".txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
+lsmod >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
 
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "Kernel & Operating System Information" >> $HOME/systeminfo.txt
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
-uname -a >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
-lsb_release -d >> $HOME/systeminfo.txt
-lsb_release -i >> $HOME/systeminfo.txt
-lsb_release -c >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
-echo "Based on:" >> $HOME/systeminfo.txt
-cat /etc/issue.net >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "Kernel & Operating System Information" >> $HOME/systeminfo-"${DATE}".txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
+uname -a >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
+lsb_release -d >> $HOME/systeminfo-"${DATE}".txt
+lsb_release -i >> $HOME/systeminfo-"${DATE}".txt
+lsb_release -c >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
+echo "Based on:" >> $HOME/systeminfo-"${DATE}".txt
+cat /etc/issue.net >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
 
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "Network Information" >> $HOME/systeminfo.txt
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
-ifconfig >> $HOME/systeminfo.txt
-more /etc/network/interfaces >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
-sudo lshw -C network >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "Network Information" >> $HOME/systeminfo-"${DATE}".txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
+ifconfig >> $HOME/systeminfo-"${DATE}".txt
+more /etc/network/interfaces >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
+sudo lshw -C network >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
 
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "Software Installed Information" >> $HOME/systeminfo.txt
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
-dpkg --list >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "Software Installed Information" >> $HOME/systeminfo-"${DATE}".txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
+dpkg --list >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
 
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "End of Report" >> $HOME/systeminfo.txt
-echo "===========================================================" >> $HOME/systeminfo.txt
-echo "" >> $HOME/systeminfo.txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "End of Report" >> $HOME/systeminfo-"${DATE}".txt
+echo "===========================================================" >> $HOME/systeminfo-"${DATE}".txt
+echo "" >> $HOME/systeminfo-"${DATE}".txt
 
 # End of reporting information
 
 echo "The System Report is now complete."
-echo "You now have a file called ${bold}systeminfo.txt${normal} in your Home folder."
+echo "You now have a file called ${bold}systeminfo-"${DATE}".txt${normal} in your Home folder."
 echo "You can open it by double clicking on it."
 echo "Press any Key to close this window."
 read -n1 any_key
