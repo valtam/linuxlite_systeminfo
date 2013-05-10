@@ -3,7 +3,8 @@
 # Developer - Jerry Bezencon
 # Creation Date - Monday 29th April, 2013
 # Website - http://www.linuxliteos.com
-# Credits - http://www.notanon.com/shell-scripts/checking-for-multiple-dependencies-simultaneously-in-your-bash-script/2010/04/25/
+# Credits - Various people at the Linux Distro Community including but not limited to:
+# Armageddon, pdq, pingcasts, preecher, setkeh, Shaggytwodope, Stripe, zoose.
 
 Parts of the script will work on other linux based distros, feel free to modify
 the code to suit your needs. See license.txt for GPLv2 information.

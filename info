@@ -10,7 +10,7 @@
 bold=`tput bold`
 normal=`tput sgr0`
 DATE=$(date +"%A-%d-%B-%Y-%T")
-# rm -rf $HOME/systeminfo.txt	// yet to be finished
+rm -rf $HOME/systeminfo*
 
 # Script start
 
@@ -33,10 +33,6 @@ echo "" >> $HOME/systeminfo-"${DATE}".txt
 
 echo "Please enter your password to continue..."
 echo ""
-
-# Install any missing dependencies
-
-sudo apt-get install lshw dmidecode hdparm
 
 # Begin reporting information
 
